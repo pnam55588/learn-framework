@@ -1,0 +1,50 @@
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <!-- <div>
+            <div class="form-control">
+                <label for="photo">photo</label>
+                <input type="file" (change)="onFileChange($event)" formControlName="photo" id="photo" 
+                [multiple]="false" accept="image/*">
+            </div>
+        </div> -->
+        <!-- <div> -->
+        <div class="form-control">
+            <label for="id">id</label>
+            <input type="text" formControlName="id" id="id" [attr.disabled]="true">
+        </div>
+        <div class="form-control">
+            <label for="name">name</label>
+            <input type="text" formControlName="name" id="name" required>
+        </div>
+        <div class="form-control">
+            <label for="city">city</label>
+            <input type="text" formControlName="city" id="city" required>
+        </div>
+        <div class="form-control">
+            <label for="state">state</label>
+            <input type="text" formControlName="state" id="state" required>
+        </div>
+        <div class="form-control">
+            <label for="availableUnits">availableUnits</label>
+            <input type="number" formControlName="availableUnits" id="availableUnits" required>
+        </div>
+        <div class="form-control">
+            <label for="wifi">wifi</label>
+            <select id="wifi" formControlName="wifi">
+                <option [value]="true" [defaultSelected]="true">true</option>
+                <option [value]="true">false</option>
+            </select>
+        </div>
+        <div class="form-control">
+            <label for="laundry">laundry</label>
+            <select id="laundry" formControlName="laundry">
+                <option [value]="true">true</option>
+                <option [value]="true">false</option>
+            </select>
+        </div>
+        <!-- </div> -->
+    </div>
+    <button type="submit" class="btn-submit btn-primary">Submit</button>
+</form>
+
+<app-housing-table></app-housing-table>
