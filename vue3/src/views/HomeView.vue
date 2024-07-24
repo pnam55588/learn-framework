@@ -1,18 +1,46 @@
 <script setup lang="ts">
-import NewsContent from './NewsContent.vue'
+import router from '@/router'
+import { ref } from 'vue'
+import { baseUrl } from '@/api/api'
+
+const email = ref('nam@gmail.com')
+const password = ref('123')
+
+const onSubmit = async () => {
+    try {
+        const response = await fetch(baseUrl + 'login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                email: email.value,
+                password: password.value
+            })
+        })
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok')
+        }
+        const res = await response.json()
+        localStorage.setItem('token', res.token)
+
+        router.push('/profile')
+    } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error)
+    }
+}
 </script>
 
 <template>
     <main>
-        <ul>
-            <li><a href="#">News 1</a></li>
-            <li><a href="#">News 2</a></li>
-            <li><a href="#">News 3</a></li>
-            <li><a href="#">News 4</a></li>
-        </ul>
-
-        <div class="news-content">
-            <NewsContent />
+        <div class="form">
+            <label for="email">email:</label>
+            <input type="email" required v-model="email" />
+            <label for="password">password:</label>
+            <input type="password" required v-model="password" />
+            <button @click="onSubmit">Login</button>
         </div>
     </main>
 </template>
@@ -26,48 +54,25 @@ main {
     max-width: 1200px;
     margin: 0 auto;
 }
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 200px;
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+input {
+    padding: 5px;
+    border: 1px solid #ccc;
 }
 
-li {
-    margin-bottom: 10px;
+button {
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
-
-li a {
-    text-decoration: none;
-    color: #007bff;
-    font-size: 16px;
-    padding: 10px;
-    display: block;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-li a:hover {
-    background-color: #e9e9e9;
-}
-
-.news-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 @media (max-width: 768px) {
     main {
         flex-direction: column;
-    }
-
-    ul {
-        width: 100%;
-        margin-bottom: 20px;
     }
 }
 </style>

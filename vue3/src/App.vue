@@ -8,6 +8,7 @@ import router from '@/router'
         <header>
             <nav>
                 <RouterLink to="/" active-class="active">Home</RouterLink>
+                <RouterLink to="/profile" active-class="active">profile</RouterLink>
                 <RouterLink to="/about" active-class="active">About</RouterLink>
             </nav>
         </header>
