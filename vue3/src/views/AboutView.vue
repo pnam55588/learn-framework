@@ -4,8 +4,6 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import PersonInfo from '@/components/PersonInfo.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style></style>

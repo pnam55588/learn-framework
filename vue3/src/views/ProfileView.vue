@@ -1,38 +1,31 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import type IUser from '@/types/user'
-import { baseUrl } from '@/api/api'
+import { onMounted, ref } from 'vue';
+import type IUser from '@/types/user';
+import { baseUrl } from '@/config/api';
+import { get, getWithToken } from '@/helpers/apiClient';
 
 const user = ref<IUser>({
     name: '',
     email: '',
     age: 0,
     id: '',
-    password: ''
-})
+    password: '',
+});
 
 // get user by fetching the user endpoint
 const fetchUser = async () => {
-    try {
-        const response = await fetch(baseUrl + 'user', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            },
-            credentials: 'include'
-        })
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok')
-        }
-
-        user.value = await response.json()
-    } catch (error) {
-        console.error('There has been a problem with your fetch operation:', error)
+    const token = localStorage.getItem('token');
+    if (!token) {
+        return;
     }
-}
-onMounted(fetchUser)
+    const res = await getWithToken<any>(baseUrl + '/users/me');
+    if (res) {
+        user.value = res.data;
+    } else {
+        console.log('failed to fetch user');
+    }
+};
+onMounted(fetchUser);
 </script>
 
 <template>

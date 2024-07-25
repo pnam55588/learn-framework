@@ -1,43 +1,58 @@
 <script setup lang="ts">
-import router from '@/router'
-import { ref } from 'vue'
-import { baseUrl } from '@/api/api'
+import router from '@/router';
+import { ref } from 'vue';
+import { baseUrl } from '@/config/api';
+import { post } from '@/helpers/apiClient';
 
-const email = ref('nam@gmail.com')
-const password = ref('123')
+const email = ref('nam@gmail.com');
+const password = ref('123');
+// const onSubmit = async () => {
+//     try {
+//         const response = await fetch(baseUrl + 'login', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             credentials: 'include',
+//             body: JSON.stringify({
+//                 email: email.value,
+//                 password: password.value,
+//             }),
+//         });
 
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         const res = await response.json();
+//         localStorage.setItem('token', res.token);
+
+//         router.push('/profile');
+//     } catch (error) {
+//         console.error(
+//             'There has been a problem with your fetch operation:',
+//             error,
+//         );
+//     }
+// };
 const onSubmit = async () => {
-    try {
-        const response = await fetch(baseUrl + 'login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                email: email.value,
-                password: password.value
-            })
-        })
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok')
-        }
-        const res = await response.json()
-        localStorage.setItem('token', res.token)
-
-        router.push('/profile')
-    } catch (error) {
-        console.error('There has been a problem with your fetch operation:', error)
+    const res = await post<any>('/auth/login', {
+        email: email.value,
+        password: password.value,
+    });
+    if (res) {
+        localStorage.setItem('token', res.data.token);
+        router.push('/profile');
+    } else {
+        console.log('login failed');
     }
-}
+};
 </script>
 
 <template>
     <main>
         <div class="form">
             <label for="email">email:</label>
-            <input type="email" required v-model="email" />
+            <input type="password" required v-model="email" />
             <label for="password">password:</label>
             <input type="password" required v-model="password" />
             <button @click="onSubmit">Login</button>
