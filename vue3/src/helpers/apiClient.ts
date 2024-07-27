@@ -1,4 +1,4 @@
-import { baseUrl } from '@/config/api';
+import { baseUrl } from '@/configs/api';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 

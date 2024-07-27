@@ -1,6 +1,10 @@
+<script setup lang="ts">
+import { defineProps } from 'vue';
+</script>
+
 <template>
     <div>
         <h1>Test Component</h1>
-        <button v-on="$data"></button>
+        <button></button>
     </div>
 </template>

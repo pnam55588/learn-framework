@@ -1,41 +1,13 @@
 <script setup lang="ts">
 import router from '@/router';
 import { ref } from 'vue';
-import { baseUrl } from '@/config/api';
+import { baseUrl } from '@/configs/api';
 import { post } from '@/helpers/apiClient';
 
 const email = ref('nam@gmail.com');
 const password = ref('123');
-// const onSubmit = async () => {
-//     try {
-//         const response = await fetch(baseUrl + 'login', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             credentials: 'include',
-//             body: JSON.stringify({
-//                 email: email.value,
-//                 password: password.value,
-//             }),
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         const res = await response.json();
-//         localStorage.setItem('token', res.token);
-
-//         router.push('/profile');
-//     } catch (error) {
-//         console.error(
-//             'There has been a problem with your fetch operation:',
-//             error,
-//         );
-//     }
-// };
 const onSubmit = async () => {
-    const res = await post<any>('/auth/login', {
+    const res = await post<any>(baseUrl + '/auth/login', {
         email: email.value,
         password: password.value,
     });

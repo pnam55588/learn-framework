@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type IUser from '@/types/user';
-import { baseUrl } from '@/config/api';
+import { baseUrl } from '@/configs/api';
 import { get, getWithToken } from '@/helpers/apiClient';
 
 const user = ref<IUser>({
