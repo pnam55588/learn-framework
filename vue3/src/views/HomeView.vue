@@ -51,9 +51,9 @@ const onSubmit = async () => {
 <template>
     <main>
         <div class="form">
-            <label for="email">email:</label>
+            <label for="email">Email:</label>
             <input type="password" required v-model="email" />
-            <label for="password">password:</label>
+            <label for="password">Password:</label>
             <input type="password" required v-model="password" />
             <button @click="onSubmit">Login</button>
         </div>
@@ -63,8 +63,8 @@ const onSubmit = async () => {
 <style scoped>
 main {
     display: flex;
-    flex-direction: row;
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
@@ -73,21 +73,23 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 300px;
+    max-width: 100%;
 }
 input {
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
 }
 
 button {
-    padding: 5px;
+    padding: 8px;
     border: 1px solid #ccc;
+    border-radius: 5px;
     background-color: #f0f0f0;
     cursor: pointer;
 }
 @media (max-width: 768px) {
     main {
-        flex-direction: column;
     }
 }
 </style>

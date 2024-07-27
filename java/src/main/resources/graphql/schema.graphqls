@@ -1,0 +1,17 @@
+scalar Date
+
+type Query {
+    userByEmail(email: String): User
+    initUsers: [User]
+}
+
+
+type User {
+    id: ID
+    name: String
+    email: String
+    password: String
+    role: String
+    createdDate: Date
+    updatedDate: Date
+}
